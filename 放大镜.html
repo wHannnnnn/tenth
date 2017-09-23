@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #smallbox {
+            width: 480px;
+            height: 288px;
+            position: relative;
+            margin: 100px;
+        }
+
+        #floatbox {
+            width: 100px;
+            height: 100px;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url(images/bj.png) repeat;
+
+        }
+
+        #bigbox {
+            width: 480px;
+            height: 288px;
+            position: absolute;
+            left: 600px;
+            display: none;
+            overflow: hidden;
+            top: 0px;
+        }
+
+        #bigbox img {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+    </style>
+</head>
+<body>
+<div id="smallbox">
+    <img src="images/small.png" alt=""/>
+
+    <div id="floatbox"></div>
+    <div id="bigbox">
+        <img src="images/big.jpg" alt="" id="bigimg"/>
+    </div>
+</div>
+</body>
+<script src="../myTools.js"></script>
+<script>
+    var aSmallbox = $("#smallbox")
+    var aFloatbox = $("#floatbox")
+    var aBigbox = $("#bigbox")
+    var aBigimg = $("#bigimg")
+    aSmallbox.onmouseout = function () {
+        aFloatbox.style.display = "none"
+        aBigbox.style.display = "none"
+    }
+    aSmallbox.onmousemove = function (e) {
+        aFloatbox.style.display = "block"
+        aBigbox.style.display = "block"
+        e = e || event
+        var aL = e.clientX - aSmallbox.offsetLeft - aFloatbox.offsetWidth / 2
+        var aT = e.clientY - aSmallbox.offsetTop - aFloatbox.offsetHeight / 2
+        //限制floatbox的范围
+        aFloatbox.style.left = aL + "px"
+        aFloatbox.style.top = aT + "px"
+        if (aL < 0) {
+            aFloatbox.style.left = 0 + "px"
+        }
+        if (aL > aSmallbox.offsetWidth - aFloatbox.offsetWidth) {
+            aFloatbox.style.left = aSmallbox.offsetWidth - aFloatbox.offsetWidth + "px"
+        }
+        if (aT < 0) {
+            aFloatbox.style.top = 0 + "px"
+        }
+        if (aT > aSmallbox.offsetHeight - aFloatbox.offsetHeight) {
+            aFloatbox.style.top = aSmallbox.offsetHeight - aFloatbox.offsetHeight + "px"
+        }
+        var aLbili = aL / (aSmallbox.offsetWidth - aFloatbox.offsetWidth)
+        var aTbili = aT / (aSmallbox.offsetHeight - aFloatbox.offsetHeight)
+        var aLbigimg = aLbili * (aBigimg.offsetWidth - aBigbox.offsetWidth)
+        var aTbigimg = aTbili * (aBigimg.offsetHeight - aBigbox.offsetHeight)
+
+        aBigimg.style.left = -aLbigimg + "px"
+        aBigimg.style.top = -aTbigimg + "px"
+        if (aLbigimg < 0) {
+            aBigimg.style.left = 0 + "px"
+        }
+        if (aLbigimg > aBigimg.offsetWidth - aBigbox.offsetWidth) {
+            aBigimg.style.left = -(aBigimg.offsetWidth - aBigbox.offsetWidth) + "px"
+        }
+        if (aTbigimg < 0) {
+            aBigimg.style.top = 0 + "px"
+        }
+        if (aTbigimg > aBigimg.offsetHeight - aBigbox.offsetHeight) {
+            aBigimg.style.top = -(aBigimg.offsetHeight - aBigbox.offsetHeight) + "px"
+        }
+    }
+
+
+
+</script>
+</html>

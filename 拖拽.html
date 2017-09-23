@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #abox {
+            width: 200px;
+            height: 200px;
+            border: 2px solid grey;
+            padding: 20px;
+            position: absolute;
+            left: 200px;
+            top: 200px;
+        }
+
+        input {
+            width: 180px;
+            height: 20px;
+            border: 1px solid grey;
+            margin-top: 10px;
+            margin-left: 10px;
+
+        }
+
+        button {
+            position: absolute;
+            left: 70%;
+            top: 80%;
+        }
+    </style>
+</head>
+<body>
+<div id="abox">
+
+    用户名:<input type="text"/><br/><br/>
+    密码: <input type="password"/><br/><br/>
+    <button>登录</button>
+</div>
+</body>
+<script src="../myTools.js"></script>
+<script>
+    var aDiv = $("#abox")
+    aDiv.onmousedown = function (e) {
+        e = e || event
+        var aleft = e.clientX - this.offsetLeft
+        var aright = e.clientY - this.offsetTop
+
+        document.onmousemove = function (e) {
+            aDiv.style.left = e.clientX - aleft + "px"
+            aDiv.style.top = e.clientY - aright + "px"
+            if(aDiv.offsetLeft<0){
+                aDiv.style.left=0+"px"
+            }
+            if(aDiv.offsetLeft>document.documentElement.clientWidth-aDiv.offsetWidth){
+                aDiv.style.left=document.documentElement.clientWidth-aDiv.offsetWidth+"px"
+            }
+            if(aDiv.offsetTop<0){
+                aDiv.style.top=0+"px"
+            }
+            if(aDiv.offsetTop>document.documentElement.clientHeight-aDiv.offsetHeight){
+                aDiv.style.top=document.documentElement.clientHeight-aDiv.offsetHeight+"px"
+            }
+        }
+        document.onmouseup=function(){
+            document.onmousemove=null
+        }
+
+    }
+</script>
+</html>

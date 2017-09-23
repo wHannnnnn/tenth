@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #fly {
+            width: 85px;
+            height: 81px;
+            background: url(fly.gif);
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="fly"></div>
+</body>
+<script src="../myTools.js"></script>
+<script>
+    var aFly = $("#fly")
+    var onOff = {
+        left: false,
+        up: false,
+        right: false,
+        down: false
+    }
+
+    setInterval(function () {
+        if (onOff.left) {
+            aFly.style.left = aFly.offsetLeft - 10 + "px"
+            aFly.style.transform = "rotate(270deg)"
+        }
+        if (onOff.up) {
+            aFly.style.top = aFly.offsetTop - 10 + "px"
+            aFly.style.transform = "rotate(0deg)"
+        }
+
+        if (onOff.right) {
+            aFly.style.left = aFly.offsetLeft + 10 + "px"
+            aFly.style.transform = "rotate(90deg)"
+        }
+
+        if (onOff.down) {
+            aFly.style.top = aFly.offsetTop + 10 + "px"
+            aFly.style.transform = "rotate(180deg)"
+        }
+        if (onOff.left && onOff.up) {
+            aFly.style.transform = "rotate(315deg)"
+        }
+        if (onOff.left && onOff.down) {
+            aFly.style.transform = "rotate(225deg)"
+        }
+        if (onOff.right && onOff.up) {
+            aFly.style.transform = "rotate(45deg)"
+        }
+        if (onOff.right && onOff.down) {
+            aFly.style.transform = "rotate(135deg)"
+
+        }
+        if (aFly.offsetLeft < 0) {
+            aFly.style.left = 0
+        }
+        if (aFly.offsetLeft > document.documentElement.clientWidth - aFly.offsetWidth) {
+            aFly.style.left = document.documentElement.clientWidth - aFly.offsetWidth + "px"
+        }
+        if (aFly.offsetTop < 0) {
+            aFly.style.top = 0
+        }
+        if (aFly.offsetTop > document.documentElement.clientHeight - aFly.offsetHeight) {
+            aFly.style.top = document.documentElement.clientHeight - aFly.offsetHeight + "px"
+        }
+    }, 30)
+
+    document.onkeydown = function (e) {
+        e = e || event
+        if (e.keyCode == 37) {
+            onOff.left = true
+        }
+        if (e.keyCode == 38) {
+            onOff.up = true
+        }
+        if (e.keyCode == 39) {
+            onOff.right = true
+        }
+
+        if (e.keyCode == 40) {
+            onOff.down = true
+        }
+
+    }
+    document.onkeyup = function (e) {
+        e = e || event
+        if (e.keyCode == 37) {
+            onOff.left = false
+        }
+        if (e.keyCode == 38) {
+            onOff.up = false
+        }
+        if (e.keyCode == 39) {
+            onOff.right = false
+        }
+
+        if (e.keyCode == 40) {
+            onOff.down = false
+        }
+
+    }
+
+
+</script>
+</html>

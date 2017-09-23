@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img {
+        width: 100px;
+        position: absolute;
+    }</style>
+</head>
+<body>
+<img src="xn.png" alt=""/>
+
+
+</body>
+<script src="../myTools.js"></script>
+<script>
+var aimg=$("img")[0]
+aimg.onmousedown=function(e) {
+    e = e || event
+    if(e.preventDefault) {
+        e.preventDefault();
+    }
+/*    e.returnValue&&(e.returnValue = false);*/
+//    aimg.setCapture&&aimg.setCapture();
+
+
+    var aleft = e.clientX - this.offsetLeft
+    var atop = e.clientY - this.offsetTop
+
+    document.onmousemove = function (e) {
+        e = e || event
+        aimg.style.left = e.clientX - aleft + "px"
+        aimg.style.top = e.clientY - atop + "px"
+    }
+    document.onmouseup = function () {
+        document.onmousemove=null
+    }
+}
+</script>
+</html>

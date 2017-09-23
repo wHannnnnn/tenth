@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            height: 2000px;
+        }
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+</body>
+<script src="../myTools.js"></script>
+<script>
+    var aDiv=$("#box")
+
+    aDiv.onmousedown=function(e) {
+        e = e || event
+        var aleft = e.clientX - this.offsetLeft
+        var atop = e.clientY - this.offsetTop
+
+
+        document.onmousemove = function (e) {
+            e = e || event
+            var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+            aDiv.style.left =e.clientX - aleft+"px"
+            aDiv.style.top = e.clientY +scrollT- atop+"px"
+
+            if (aDiv.offsetLeft < 0) {
+                aDiv.style.left = 0
+            }
+            if (aDiv.offsetLeft > document.documentElement.clientWidth - aDiv.offsetWidth) {
+                aDiv.style.left = document.documentElement.clientWidth - aDiv.offsetWidth + "px"
+            }
+            if (aDiv.offsetTop < 0) {
+                aDiv.style.top = 0
+            }
+            if (aDiv.offsetTop > document.documentElement.clientHeight - aDiv.offsetHeight) {
+                aDiv.style.top = document.documentElement.clientHeight - aDiv.offsetHeight + "px"
+            }
+
+        }
+        document.onmouseup = function () {
+            document.onmousemove=null
+        }
+    }
+</script>
+</html>

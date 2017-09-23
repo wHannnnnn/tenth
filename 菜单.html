@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box {
+            width: 60px;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+            border:2px solid #ccc;
+            cursor: pointer;
+            padding: 5px;
+            display: none;
+        }
+        #box ul  {
+            width: 60px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font:12px/30px "微软雅黑";
+        }
+        #box ul li {
+            height: 30px;
+            list-style: none;
+        }
+        #box ul li:hover {
+            background-color: orange;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li>返回</li>
+        <li>前进</li>
+        <li>后退</li>
+        <li>重新加载</li>
+        <li>检查</li>
+        <li>xx</li>
+    </ul>
+</div>
+</body>
+<script src="../myTools.js"></script>
+<script>
+var aBox=$("#box")
+    document.oncontextmenu=function(e){
+        e = e || event
+        aBox.style.left= e.clientX+"px"
+        aBox.style.top= e.clientY+"px"
+        aBox.style.display="block"
+        return false
+    }
+    document.onmousedown=function(){
+        aBox.style.display="none"
+    }
+</script>
+</html>
